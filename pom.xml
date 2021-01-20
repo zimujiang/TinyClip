@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>net.tinyclip</groupId>
+    <artifactId>TinyClip</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.6</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>4.5.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.26</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>18.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.5</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <!-- JavaFx Maven Plugin -->
+            <plugin>
+                <groupId>com.zenjava</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>8.8.3</version>
+                <configuration>
+                    <!-- 启动类 -->
+                    <mainClass>com.zimujiang.tinyclip.App</mainClass>
+                    <!-- 公司名称 -->
+                    <vendor>ZiMuJiang.Com</vendor>
+                    <!-- 应用名称 ${project.build.finalName} = ${project.artifactId}-${project.version} -->
+                    <appName>${project.build.finalName}</appName>
+                    <!-- 发行版本 -->
+                    <nativeReleaseVersion>${project.version}</nativeReleaseVersion>
+                    <!--
+                        图标设置
+
+                        > 参考：https://stackoverflow.com/questions/15880102/how-to-set-custom-icon-for-javafx-native-package-icon-on-windows
+
+                        # 方式1（按deployDir、appName配置读取ico文件）
+                        # 使用jfx:native打包时，默认会去src/main/deploy/package/windows/${appName}.ico
+                        <deployDir>${project.basedir}/src/main/deploy</deployDir>
+
+                        # 方式2（固定使用一个图标，与版本号无关）
+                        # 优先级高于第一种方式
+                        <bundleArguments>
+                            <icon>${project.basedir}/src/main/resources/icon/icon.ico</icon>
+                        </bundleArguments>
+                     -->
+                    <bundleArguments>
+                        <icon>${project.basedir}/src/main/resources/icon/icon.ico</icon>
+                    </bundleArguments>
+                    <!-- 桌面图标 -->
+                    <needShortcut>true</needShortcut>
+                    <!-- 菜单设置 -->
+                    <needMenu>true</needMenu>
+                </configuration>
+            </plugin>
+            <!-- 打包成一个jar -->
+            <!--<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <finalName>${project.build.finalName}</finalName>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.ceadeal.javafxstart.App</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
+                </configuration>
+            </plugin>-->
+        </plugins>
+    </build>
+</project>
