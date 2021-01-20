@@ -21,9 +21,11 @@ QQ群：234626039
 TinyClip目前还在开发中，商用请自行评估使用风险！
 
 ## 系统截图
+* 字幕压制
 <div align="center">
     <img src="doc/image/1.png">
 </div>
+* 音频提取
 <div align="center">
     <img src="doc/image/2.png">
 </div>
