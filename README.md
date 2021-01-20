@@ -4,9 +4,26 @@
 	</a>
 	<h1>TinyClip</h1>
 	<p>
-		<b>一个基于JavaFx的FFMPEG-GUI客户端</b>
+		<b>基于JavaFx的FFMPEG-GUI客户端</b>
 	</p>
 	<br>
 	<br>
 	<br>
+</div>
+
+## TinyClip交流群
+QQ群：234626039
+
+## 项目依赖
+* JDK1.8+
+
+## 特别提醒
+TinyClip目前还在开发中，商用请自行评估使用风险！
+
+## 系统截图
+<div align="center">
+    <img src="doc/image/1.png">
+</div>
+<div align="center">
+    <img src="doc/image/2.png">
 </div>
