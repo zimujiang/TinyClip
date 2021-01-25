@@ -32,28 +32,6 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab text="字幕压制">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Label layoutX="19.0" layoutY="36.0" text="视频文件:" />
-                        <Label layoutX="19.0" layoutY="72.0" text="字幕文件:" />
-                        <Label layoutX="19.0" layoutY="106.0" text="输出目录:" />
-                        <TextField fx:id="yzVideoTxt" layoutX="86.0" layoutY="31.0" prefHeight="27.0" prefWidth="462.0" />
-                        <TextField fx:id="yzStrTxt" layoutX="86.0" layoutY="67.0" prefHeight="27.0" prefWidth="462.0" />
-                        <TextField fx:id="yzOutPutTxt" layoutX="86.0" layoutY="101.0" prefHeight="27.0" prefWidth="462.0" />
-                        <Button fx:id="yzSelectVideoFileBtn" layoutX="559.0" layoutY="31.0" mnemonicParsing="false" onAction="#yzSelectVideoFileBtnClick" text="选择视频" />
-                        <Button fx:id="yzSelectSrtFileBtn" layoutX="559.0" layoutY="67.0" mnemonicParsing="false" onAction="#yzSelectSrtFileBtnClick" text="选择字幕" />
-                        <Button fx:id="yzSelectOutPutDirBtn" layoutX="559.0" layoutY="101.0" mnemonicParsing="false" onAction="#yzSelectOutPutDirBtnClick" text="选择目录" />
-                        <Button fx:id="yzStartBtn" layoutX="277.0" layoutY="230.0" mnemonicParsing="false" onAction="#yzStartBtnClick" text="开始处理" />
-                        <ImageView fx:id="yzimageView" fitHeight="62.0" fitWidth="200.0" layoutX="217.0" layoutY="299.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icon/loading.gif" />
-                           </image>
-                        </ImageView>
-                     </children></AnchorPane>
-            </content>
-          </Tab>
         </tabs>
       </TabPane>
       <Label layoutX="14.0" layoutY="413.0" text="字幕酱官方免费出品" />

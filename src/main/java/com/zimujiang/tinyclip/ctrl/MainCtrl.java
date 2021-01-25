@@ -15,9 +15,9 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import lombok.extern.slf4j.Slf4j;
-import com.zimujiang.tinyclip.ffmpeg.runner.BaseCommandOption;
-import com.zimujiang.tinyclip.ffmpeg.runner.FFmpegCommandRunner;
-import com.zimujiang.tinyclip.ffmpeg.utils.FileUtils;
+import com.zimujiang.tinyclip.utils.FileUtils;
+import org.apache.commons.lang3.time.StopWatch;
+import org.bytedeco.javacpp.Loader;
 
 import java.awt.*;
 import java.io.File;
@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -51,16 +51,6 @@ public class MainCtrl implements Initializable {
     public TextField tqOutPutTxt;
     public ImageView tqimageView;
 
-    // 压制Tab
-    public Button yzSelectVideoFileBtn;
-    public Button yzSelectSrtFileBtn;
-    public Button yzSelectOutPutDirBtn;
-    public Button yzStartBtn;
-    public TextField yzVideoTxt;
-    public TextField yzStrTxt;
-    public TextField yzOutPutTxt;
-    public ImageView yzimageView;
-
 
     public void initialize(URL location, ResourceBundle resources) {
         //log.info("initialize: {}", location.getPath());
@@ -69,7 +59,6 @@ public class MainCtrl implements Initializable {
         tqFormatCb.getItems().addAll("mp3","wav");
         tqFormatCb.getSelectionModel().select(0);
         tqimageView.setVisible(false);
-        yzimageView.setVisible(false);
     }
 
     /**
@@ -84,17 +73,30 @@ public class MainCtrl implements Initializable {
         File f = new File(input);
         File d = new File(outputDir);
         String videoName = "TinyClip_"+FileUtils.getFileName(f)+"_"+Long.toString(System.currentTimeMillis()/1000L);
-        File output = new File(outputDir + File.separator + videoName +"."+ format);
         if(input!=null && outputDir!=null && d.exists() && f.exists()) {
-            List<String> commands = Lists.newArrayList(BaseCommandOption.getFFmpegBinary());
-            commands.add("-i");
-            commands.add(input);
-            commands.add("-ar");
-            commands.add(rate);
-            commands.add(output.getAbsolutePath());
+            String ffmpeg = Loader.load(org.bytedeco.ffmpeg.ffmpeg.class);
+            ProcessBuilder pb = new ProcessBuilder(ffmpeg,"-i",input,"-ar",rate,outputDir + File.separator + videoName +"."+ format);
             Task<String> task = new Task<String>() {
                 @Override public String call() {
-                    return FFmpegCommandRunner.runProcess(commands);
+                    StopWatch sw = new StopWatch();
+                    String r = "";
+                    try {
+                        sw.start();
+                        pb.start().waitFor();
+                        sw.stop();
+                        r = "提取完成，耗时："+sw.toString();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        r = "进程被中断";
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        r = "IO异常";
+                    } finally {
+                        if(!sw.isStopped()){
+                            sw.stop();
+                        }
+                        return r;
+                    }
                 }
             };
             task.setOnRunning((e) -> {
@@ -108,7 +110,7 @@ public class MainCtrl implements Initializable {
                 tqimageView.setVisible(false);
                 try{
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setContentText("提取完成,"+task.get());
+                    alert.setContentText(task.get());
                     alert.show();
                 }catch (Exception ex){
                     log.error("获取ffmpeg返回失败");
@@ -134,63 +136,6 @@ public class MainCtrl implements Initializable {
     }
 
     /**
-     * 选择压制开始按钮点击事件
-     * @param actionEvent
-     */
-    public void yzStartBtnClick(ActionEvent actionEvent) {
-        String inputvideo = yzVideoTxt.getText();
-        String inputsrt = yzStrTxt.getText();
-        String outputDir = yzOutPutTxt.getText();
-        File video = new File(inputvideo);
-        File srt = new File(inputvideo);
-        File d = new File(outputDir);
-        String videoName = "TinyClip_"+FileUtils.getFileName(video)+"_"+Long.toString(System.currentTimeMillis()/1000L);
-        File output = new File(outputDir + File.separator + videoName +".mp4");
-        if(inputvideo!=null && inputsrt!=null && outputDir!=null && srt.exists() && d.exists() && video.exists()) {
-            List<String> commands = Lists.newArrayList(BaseCommandOption.getFFmpegBinary());
-            commands.add("-i");
-            commands.add(inputvideo);
-            commands.add("-vf");
-            commands.add("subtitles="+inputsrt);
-            commands.add(output.getAbsolutePath());
-            Task<String> yztask = new Task<String>() {
-                @Override public String call() {
-                    return FFmpegCommandRunner.runProcess(commands);
-                }
-            };
-            yztask.setOnRunning((e) -> {
-                yzStartBtn.setText("正在处理");
-                yzStartBtn.setDisable(true);
-                yzimageView.setVisible(true);
-            });
-            yztask.setOnSucceeded((e) -> {
-                yzStartBtn.setText("开始提取");
-                yzStartBtn.setDisable(false);
-                yzimageView.setVisible(false);
-                try{
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setContentText("压制完成,"+yztask.get());
-                    alert.show();
-                }catch (Exception ex){
-                    log.error("获取ffmpeg返回失败");
-                }
-            });
-            yztask.setOnFailed((e) -> {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("压制失败");
-                alert.show();
-            });
-            new Thread(yztask).start();
-        }else{
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("请确保视频、字幕、输出目录有效");
-            alert.show();
-        }
-    }
-
-
-
-    /**
      * 选择输出目录按钮单击事件
      * @param actionEvent
      */
@@ -201,20 +146,6 @@ public class MainCtrl implements Initializable {
         File directory = directoryChooser.showDialog(window);
         if (directory != null) {
             tqOutPutTxt.setText(directory.getAbsolutePath());
-        }
-    }
-
-    /**
-     * 选择输出目录按钮单击事件
-     * @param actionEvent
-     */
-    public void yzSelectOutPutDirBtnClick(ActionEvent actionEvent) {
-        Window window = rootPane.getScene().getWindow();
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setTitle("选择输出目录");
-        File directory = directoryChooser.showDialog(window);
-        if (directory != null) {
-            yzOutPutTxt.setText(directory.getAbsolutePath());
         }
     }
 
@@ -235,45 +166,6 @@ public class MainCtrl implements Initializable {
         if (file != null) {
             tqVideoTxt.setText(fileAbsolutePath);
             tqOutPutTxt.setText(file.getParentFile().getAbsolutePath());
-        }
-    }
-
-    /**
-     * 选择视频路径按钮单击事件
-     * @param actionEvent
-     */
-    public void yzSelectVideoFileBtnClick(ActionEvent actionEvent) {
-        Window window = rootPane.getScene().getWindow();
-        FileChooser fileChooser = new FileChooser();
-        // 文件类型过滤器
-        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("视频文件 (*.mp4)", "*.mp4", "*.MP4");
-        fileChooser.getExtensionFilters().add(filter);
-
-        File file = fileChooser.showOpenDialog(window);
-        String fileAbsolutePath = file == null ? "" : file.getAbsolutePath();
-
-        if (file != null) {
-            yzVideoTxt.setText(fileAbsolutePath);
-            yzOutPutTxt.setText(file.getParentFile().getAbsolutePath());
-        }
-    }
-
-    /**
-     * 选择字幕路径按钮单击事件
-     * @param actionEvent
-     */
-    public void yzSelectSrtFileBtnClick(ActionEvent actionEvent) {
-        Window window = rootPane.getScene().getWindow();
-        FileChooser fileChooser = new FileChooser();
-        // 文件类型过滤器
-        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("字幕文件 (*.srt)", "*.srt", "*.SRT");
-        fileChooser.getExtensionFilters().add(filter);
-
-        File file = fileChooser.showOpenDialog(window);
-        String fileAbsolutePath = file == null ? "" : file.getAbsolutePath();
-
-        if (file != null) {
-            yzStrTxt.setText(fileAbsolutePath);
         }
     }
 

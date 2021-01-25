@@ -1,4 +1,4 @@
-package com.zimujiang.tinyclip.ffmpeg.utils;
+package com.zimujiang.tinyclip.utils;
 
 import com.google.common.collect.Lists;
 

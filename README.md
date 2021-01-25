@@ -10,16 +10,13 @@
 </div>
 
 ## TinyClip交流群
-欢迎加入开发使用交流QQ群：234626039
+交流QQ群：234626039
 
 ## 项目依赖
-* Oracle JDK 1.8+
-* FFMPEG 4.2
-
-另外，如果使用openjdk，请自行安装openjfx.
+* JDK15
 
 ## 特别提醒
-TinyClip目前还在开发中，商用请自行评估使用风险！
+TinyClip目前还在开发中，使用请自行评估使用风险！
 
 ## 支持平台
 * Mac
@@ -27,12 +24,7 @@ TinyClip目前还在开发中，商用请自行评估使用风险！
 * Linux
 
 ## 系统截图
-1、字幕压制
+1、音频提取
 <div align="center">
     <img src="doc/image/1.png">
-</div>
-<br>
-2、音频提取
-<div align="center">
-    <img src="doc/image/2.png">
 </div>
