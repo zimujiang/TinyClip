@@ -28,32 +28,6 @@
             <version>15.0.1</version>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.6</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>4.5.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.26</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.2.3</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>18.0</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.5</version>
@@ -71,34 +45,6 @@
     </dependencies>
     <build>
         <plugins>
-            <!-- 打包成一个jar -->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-assembly-plugin</artifactId>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>make-assembly</id>-->
-<!--                        <phase>package</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>single</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--                <configuration>-->
-<!--                    <finalName>${project.build.finalName}</finalName>-->
-<!--                    <archive>-->
-<!--                        <manifest>-->
-<!--                            <mainClass>com.zimujiang.tinyclip.AppStart</mainClass>-->
-<!--                        </manifest>-->
-<!--                    </archive>-->
-<!--                    <descriptorRefs>-->
-<!--                        <descriptorRef>jar-with-dependencies</descriptorRef>-->
-<!--                    </descriptorRefs>-->
-<!--                    <appendAssemblyId>false</appendAssemblyId>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-
-            <!-- JavaFx Maven Plugin -->
             <plugin>
                 <groupId>io.github.fvarrui</groupId>
                 <artifactId>javapackager</artifactId>
@@ -114,29 +60,26 @@
                             <mainClass>com.zimujiang.tinyclip.AppStart</mainClass>
                             <!-- optional -->
                             <bundleJre>true</bundleJre>
-                            <jrePath>/Library/Java/JavaVirtualMachines/jdk-11.0.9.jdk/</jrePath>
+<!--                            <jrePath>/Library/Java/JavaVirtualMachines/jdk-11.0.9.jdk/</jrePath>-->
                             <copyDependencies>true</copyDependencies>
-                            <generateInstaller>true</generateInstaller>
                             <administratorRequired>false</administratorRequired>
                             <platform>auto</platform>
                             <additionalResources>
                                 <additionalResource>${basedir}/src/main/resources</additionalResource>
                             </additionalResources>
-<!--                            <linuxConfig>...</linuxConfig>-->
 <!--                            <winConfig>...</winConfig>-->
                             <macConfig>
                                 <generateDmg>true</generateDmg>
                                 <generatePkg>true</generatePkg>
                                 <iconSize>128</iconSize>
-                                <volumeIcon>${basedir}/src/main/resources/icon/TinyClip.icns</volumeIcon>
-                                <volumeName>${name}</volumeName>
+                                <icnsFile>${basedir}/src/main/resources/icon/TinyClip.icns</icnsFile>
                             </macConfig>
-                            <linuxConfig>
-                                <pngFile>${basedir}/src/main/resources/icon/TinyClip.png</pngFile>
-                                <xpmFile>${basedir}/src/main/resources/icon/TinyClip.png</xpmFile>
-                                <generateDeb>true</generateDeb>
-                                <generateRpm>true</generateRpm>
-                            </linuxConfig>
+<!--                            <linuxConfig>-->
+<!--                                <pngFile>${basedir}/src/main/resources/icon/TinyClip.png</pngFile>-->
+<!--                                <xpmFile>${basedir}/src/main/resources/icon/TinyClip.png</xpmFile>-->
+<!--                                <generateDeb>true</generateDeb>-->
+<!--                                <generateRpm>true</generateRpm>-->
+<!--                            </linuxConfig>-->
                         </configuration>
                     </execution>
                 </executions>

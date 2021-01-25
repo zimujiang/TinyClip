@@ -1,7 +1,5 @@
 package com.zimujiang.tinyclip.ctrl;
 
-
-import com.google.common.collect.Lists;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -14,7 +12,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
-import lombok.extern.slf4j.Slf4j;
 import com.zimujiang.tinyclip.utils.FileUtils;
 import org.apache.commons.lang3.time.StopWatch;
 import org.bytedeco.javacpp.Loader;
@@ -34,7 +31,6 @@ import java.util.ResourceBundle;
  * @author westinyang
  * @date 2020/3/18 18:13
  */
-@Slf4j
 public class MainCtrl implements Initializable {
 
     // 主容器
@@ -72,7 +68,7 @@ public class MainCtrl implements Initializable {
         String format = tqFormatCb.getValue().toString().toLowerCase();
         File f = new File(input);
         File d = new File(outputDir);
-        String videoName = "TinyClip_"+FileUtils.getFileName(f)+"_"+Long.toString(System.currentTimeMillis()/1000L);
+        String videoName = "TinyClip_"+FileUtils.getFileName(f)+"_"+ System.currentTimeMillis() / 1000L;
         if(input!=null && outputDir!=null && d.exists() && f.exists()) {
             String ffmpeg = Loader.load(org.bytedeco.ffmpeg.ffmpeg.class);
             ProcessBuilder pb = new ProcessBuilder(ffmpeg,"-i",input,"-ar",rate,outputDir + File.separator + videoName +"."+ format);
@@ -113,7 +109,7 @@ public class MainCtrl implements Initializable {
                     alert.setContentText(task.get());
                     alert.show();
                 }catch (Exception ex){
-                    log.error("获取ffmpeg返回失败");
+                    ex.printStackTrace();
                 }
             });
             task.setOnFailed((e) -> {

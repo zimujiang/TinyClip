@@ -5,6 +5,7 @@ import org.bytedeco.javacpp.Loader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class Test {
     public static void main(String[] args){
@@ -15,7 +16,7 @@ public class Test {
             pb.redirectErrorStream(true);
             //pb.start().waitFor();
             Process process =  pb.start();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream(), "UTF-8"));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_8));
             StringBuffer sb = new StringBuffer();
             String line;
             while ((line = reader.readLine()) != null) {

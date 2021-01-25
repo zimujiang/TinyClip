@@ -1,7 +1,5 @@
 package com.zimujiang.tinyclip.config;
 
-import cn.hutool.setting.Setting;
-
 /**
  * 应用配置
  *
@@ -10,23 +8,18 @@ import cn.hutool.setting.Setting;
  */
 public class AppConfig {
     // 应用标题
-    public static String title = "TinyClip";
+    public static String title = "TinyClip V0.0.1";
     // 应用图标
-    public static String icon = "";
+    public static String icon = "/icon/TinyClip.png";
     // 窗口宽度
     public static int stageWidth = 640;
     // 窗口高度
     public static int stageHeight = 480;
     // 允许调整窗口尺寸
-    public static boolean stageResizable = true;
+    public static boolean stageResizable = false;
 
     public static void init() {
-        Setting setting = new Setting("app.properties");
-        title = setting.get("title");
-        icon = setting.get("icon");
-        stageWidth = setting.getInt("stage.width");
-        stageHeight = setting.getInt("stage.height");
-        stageResizable = setting.getBool("stage.resizable");
+        //初始化窗口todo
     }
 
 }
