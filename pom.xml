@@ -9,9 +9,9 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <java.version>15</java.version>
-        <maven.compiler.source>15</maven.compiler.source>
-        <maven.compiler.target>15</maven.compiler.target>
+        <java.version>11</java.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -72,44 +72,75 @@
     <build>
         <plugins>
             <!-- 打包成一个jar -->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-assembly-plugin</artifactId>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>make-assembly</id>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>single</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <configuration>-->
+<!--                    <finalName>${project.build.finalName}</finalName>-->
+<!--                    <archive>-->
+<!--                        <manifest>-->
+<!--                            <mainClass>com.zimujiang.tinyclip.AppStart</mainClass>-->
+<!--                        </manifest>-->
+<!--                    </archive>-->
+<!--                    <descriptorRefs>-->
+<!--                        <descriptorRef>jar-with-dependencies</descriptorRef>-->
+<!--                    </descriptorRefs>-->
+<!--                    <appendAssemblyId>false</appendAssemblyId>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+
+            <!-- JavaFx Maven Plugin -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
+                <groupId>io.github.fvarrui</groupId>
+                <artifactId>javapackager</artifactId>
+                <version>1.5.1</version>
                 <executions>
                     <execution>
-                        <id>make-assembly</id>
                         <phase>package</phase>
                         <goals>
-                            <goal>single</goal>
+                            <goal>package</goal>
                         </goals>
+                        <configuration>
+                            <!-- mandatory -->
+                            <mainClass>com.zimujiang.tinyclip.AppStart</mainClass>
+                            <!-- optional -->
+                            <bundleJre>true</bundleJre>
+                            <jrePath>/Library/Java/JavaVirtualMachines/jdk-11.0.9.jdk/</jrePath>
+                            <copyDependencies>true</copyDependencies>
+                            <generateInstaller>true</generateInstaller>
+                            <administratorRequired>false</administratorRequired>
+                            <platform>auto</platform>
+                            <additionalResources>
+                                <additionalResource>${basedir}/src/main/resources</additionalResource>
+                            </additionalResources>
+<!--                            <linuxConfig>...</linuxConfig>-->
+<!--                            <winConfig>...</winConfig>-->
+                            <macConfig>
+                                <generateDmg>true</generateDmg>
+                                <generatePkg>true</generatePkg>
+                                <iconSize>128</iconSize>
+                                <volumeIcon>${basedir}/src/main/resources/icon/TinyClip.icns</volumeIcon>
+                                <volumeName>${name}</volumeName>
+                            </macConfig>
+                            <linuxConfig>
+                                <pngFile>${basedir}/src/main/resources/icon/TinyClip.png</pngFile>
+                                <xpmFile>${basedir}/src/main/resources/icon/TinyClip.png</xpmFile>
+                                <generateDeb>true</generateDeb>
+                                <generateRpm>true</generateRpm>
+                            </linuxConfig>
+                        </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <finalName>${project.build.finalName}</finalName>
-                    <archive>
-                        <manifest>
-                            <mainClass>com.zimujiang.tinyclip.AppStart</mainClass>
-                        </manifest>
-                    </archive>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <appendAssemblyId>false</appendAssemblyId>
-                </configuration>
             </plugin>
         </plugins>
     </build>
-    <repositories>
-        <repository>
-            <id>nexus-aliyun</id>
-            <name>nexus-aliyun</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
 </project>
