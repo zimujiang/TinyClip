@@ -10,7 +10,7 @@ import cn.hutool.setting.Setting;
  */
 public class AppConfig {
     // 应用标题
-    public static String title = "TinyClip Application";
+    public static String title = "TinyClip";
     // 应用图标
     public static String icon = "";
     // 窗口宽度
