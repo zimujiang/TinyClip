@@ -119,12 +119,6 @@ public class MainCtrl implements Initializable {
             });
             new Thread(task).start();
         }else{
-            Platform.setImplicitExit(false);
-            Platform.runLater(() -> {
-                tqStartBtn.setText("开始提取");
-                tqStartBtn.setDisable(false);
-                tqimageView.setVisible(false);
-            });
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("请确保输入视频和输出目录有效");
             alert.show();

@@ -7,7 +7,7 @@
 
 <Pane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.6" prefHeight="480.0" prefWidth="640.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zimujiang.tinyclip.ctrl.MainCtrl">
    <children>
-      <TabPane prefHeight="403.0" prefWidth="640.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="442.0" prefWidth="640.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="音频提取">
             <content>
@@ -32,10 +32,15 @@
                      </children></AnchorPane>
             </content>
           </Tab>
+            <Tab text="字幕转换">
+              <content>
+                  <fx:include fx:id="subtitleConvertTab" source="subtitleConvert.fxml"/>
+              </content>
+            </Tab>
         </tabs>
       </TabPane>
-      <Label layoutX="14.0" layoutY="413.0" text="字幕酱官方免费出品" />
-      <Hyperlink fx:id="hyperlink" layoutX="131.0" layoutY="409.0" onAction="#hyperlinkClick" text="https://www.zimujiang.com/" />
-      <Label layoutX="418.0" layoutY="413.0" text="TinyClip官方交流QQ群:234626039" />
+      <Label layoutX="13.0" layoutY="454.0" text="字幕酱官方免费出品" />
+      <Hyperlink fx:id="hyperlink" layoutX="130.0" layoutY="450.0" onAction="#hyperlinkClick" text="https://www.zimujiang.com/" />
+      <Label layoutX="417.0" layoutY="454.0" text="TinyClip官方交流QQ群:234626039" />
    </children>
 </Pane>

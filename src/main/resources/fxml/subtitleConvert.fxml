@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="367.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zimujiang.tinyclip.ctrl.SubtitleConvertCtrl">
+   <children>
+           <Label layoutX="19.0" layoutY="36.0" text="字幕文件:" />
+           <Label layoutX="19.0" layoutY="72.0" text="输出目录:" />
+           <TextField fx:id="subTxt" layoutX="86.0" layoutY="31.0" prefHeight="27.0" prefWidth="462.0" />
+           <TextField fx:id="subOutPutTxt" layoutX="86.0" layoutY="67.0" prefHeight="27.0" prefWidth="462.0" />
+           <Button fx:id="subSelectFileBtn" layoutX="559.0" layoutY="31.0" mnemonicParsing="false" onAction="#subSelectFileBtnClick" text="选择字幕" />
+           <Button fx:id="subSelectOutPutDirBtn" layoutX="559.0" layoutY="67.0" mnemonicParsing="false" onAction="#subSelectOutPutDirBtnClick" text="选择目录" />
+           <Button fx:id="subStartBtn" layoutX="282.0" layoutY="188.0" mnemonicParsing="false" onAction="#subStartBtnClick" text="开始转换" />
+           <Label layoutX="338.0" layoutY="118.0" text="转换格式:" />
+           <ComboBox fx:id="subFormatCb" layoutX="423.0" layoutY="113.0" prefWidth="150.0" promptText="选择转换格式" />
+           <ImageView fx:id="subimageView" fitHeight="25.0" fitWidth="200.0" layoutX="217.0" layoutY="263.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                   <Image url="@../icon/loading.gif" />
+               </image>
+           </ImageView>
+   </children>
+</AnchorPane>
