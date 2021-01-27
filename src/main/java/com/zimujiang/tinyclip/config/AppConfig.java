@@ -8,7 +8,7 @@ package com.zimujiang.tinyclip.config;
  */
 public class AppConfig {
     // 应用标题
-    public static String title = "TinyClip V0.0.1";
+    public static String title = "TinyClip V0.0.2";
     // 应用图标
     public static String icon = "/icon/TinyClip.png";
     // 窗口宽度
