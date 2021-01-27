@@ -1,6 +1,6 @@
 <div align="center">
 	<a href="https://www.zimujiang.com/tinyclip">
-		<img src="doc/image/icon.png" width="200" height="200">
+		<img src="http://static.pppet.net/tinyclip/icon.png" width="200" height="200">
 	</a>
 	<h1>TinyClip</h1>
 	<p>
@@ -14,7 +14,7 @@
 
 ## 项目依赖
 * dev --> JDK8+
-* build --> JDK11
+* build --> JDK11+（支持模块化打包，减小压缩包50%+）
 
 ## 特别提醒
 TinyClip目前还在开发中，使用请自行评估使用风险！
@@ -27,5 +27,5 @@ TinyClip目前还在开发中，使用请自行评估使用风险！
 ## 系统截图
 1、音频提取
 <div align="center">
-    <img src="doc/image/1.png">
+    <img src="http://static.pppet.net/tinyclip/1.png">
 </div>
